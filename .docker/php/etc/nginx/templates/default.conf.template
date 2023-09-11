@@ -1,0 +1,48 @@
+server{
+  listen 81;
+  listen [::]:81;
+  server_name _;
+  root /workdir/public;
+
+  location /ajax/admin {
+    try_files /ajax/admin/index.php =404;
+    include conf/cors-preflight.conf;
+    include fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+    include conf/cors-headers.conf;
+  }
+
+  location /ajax/admin/index.php {
+    return 404;
+  }
+
+  location /ajax/enduser {
+    try_files /ajax/enduser/index.php =404;
+    include conf/cors-preflight.conf;
+    include fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+    include conf/cors-headers.conf;
+  }
+
+  location /ajax/enduser/index.php {
+    return 404;
+  }
+
+  location /rest/enduser {
+    try_files /rest/enduser/index.php =404;
+    include conf/cors-preflight.conf;
+    include fastcgi_params;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+    include conf/cors-headers.conf;
+  }
+
+  location /rest/enduser/index.php {
+    return 404;
+  }
+}

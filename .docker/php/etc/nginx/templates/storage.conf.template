@@ -1,0 +1,14 @@
+server{
+  listen 82;
+  listen [::]:82;
+  server_name _;
+  root /workdir/storage/app;
+
+  location /pdf {
+    try_files $uri =404;
+  }
+
+  location /image {
+    try_files $uri =404;
+  }
+}
